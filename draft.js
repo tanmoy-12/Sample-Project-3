@@ -104,14 +104,15 @@ function findMissingNumber(arr){
     let missing=0;
     for(let i=0;i<arr.length;i++)
     {
-        if(i+1!=arr[i])
+        if(i+1!==arr[i])
         {
             missing=i;
+            break;
         }
     }
-    return missing;
+    return missing+1;
 }
-const Array4=[1,2,3,5,6];
+const Array4=[1,2,3,5,7];
 console.log('\n The input array is \t');
 console.log(Array4);
 const missingNumber=findMissingNumber(Array4);

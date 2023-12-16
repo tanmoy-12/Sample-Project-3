@@ -13,10 +13,6 @@ const flashcardsData = [
   { word: 'Sycophant', meaning: 'A person who acts obsequiously toward someone important in order to gain an advantage',id:'10' },
 ];
 
-const json = fs.readFileSync("./json/data.json", "utf8");
-const data = JSON.parse(json);
-console.log(data);
-
 const cardContainer = document.getElementById('card-container');
 const startButton = document.getElementById('start-button');
 const resetButton = document.getElementById('reset-button');
@@ -25,13 +21,9 @@ const scoreCard = document.getElementById('score-card');
 let score=10;
 const handleClick = (item, cardElement) => {
   if (!cardElement.classList.contains('border-red-500')) {
-    console.log(item.word);
-    console.log(item.id);
-    i++;
     cardElement.classList.add('border-red-500');
     cardElement.innerText = item.meaning;
     clickedCards.push({ word: item.word, meaning: item.meaning });
-    console.log(i);
     score=score-1;
   }
   populate();
@@ -47,14 +39,6 @@ const handleStart = () => {
     populate();
     cardContainer.innerHTML = '';
     clickedCards = []; 
-    fetch('https://https://github.com/tanmoy-12/Sample-Project-3/blob/master/data.json') //add json file here
-    .then(response => {
-    if (!response.ok) {
-      throw new Error('Error in connection');
-    }
-    return response.json();
-  })
-  .then(flashcardsData => {
     flashcardsData.forEach((item) => {
         const cardElement = document.createElement('div');
         cardElement.className = 'border-2 border-green-500 rounded-md p-5 h-full';
@@ -63,11 +47,7 @@ const handleStart = () => {
         cardElement.addEventListener('click', () => {
           handleClick(item, cardElement);
         });
-      });
   })
-  .catch(error => {
-    console.error('There was a problem fetching the data:', error);
-  });
   scoreCard.classList.remove('hidden');
   resetButton.classList.remove('hidden');
   startButton.classList.add('hidden');
